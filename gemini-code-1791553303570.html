@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrición & Dietética — Guía y Calculadora de Porciones</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="container">
+      <h1>Portal de Nutrición & Dietética</h1>
+      <p>Calcula tus requerimientos calóricos, distribución de macronutrientes y porciones de alimentos recomendadas según tus características.</p>
+    </div>
+  </header>
+
+  <!-- Navegación -->
+  <nav class="navbar">
+    <div class="container nav-links">
+      <a href="#calculadora">Calculadora & Porciones</a>
+      <a href="#guias-dietas">Tipos de Dietas</a>
+      <a href="#grupos-alimentos">Grupos de Alimentos</a>
+      <a href="#consejos">Consejos Saludables</a>
+    </div>
+  </nav>
+
+  <main class="container content">
+
+    <!-- Sección Calculadora de Porciones -->
+    <section id="calculadora" class="card">
+      <h2>Calculadora Nutricional Personalizada</h2>
+      <p class="subtitle">Ingresa tus datos para obtener una estimación de tus necesidades metabólicas y distribución de alimentos diaria.</p>
+
+      <form id="nutrition-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="gender">Género biológo</label>
+            <select id="gender" required>
+              <option value="male">Masculino</option>
+              <option value="female">Femenino</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="age">Edad (años)</label>
+            <input type="number" id="age" min="15" max="100" placeholder="Ej. 25" required>
+          </div>
+
+          <div class="form-group">
+            <label for="weight">Peso (kg)</label>
+            <input type="number" id="weight" step="0.1" min="30" max="250" placeholder="Ej. 70" required>
+          </div>
+
+          <div class="form-group">
+            <label for="height">Estatura (cm)</label>
+            <input type="number" id="height" min="120" max="230" placeholder="Ej. 175" required>
+          </div>
+
+          <div class="form-group">
+            <label for="activity">Nivel de actividad física</label>
+            <select id="activity" required>
+              <option value="1.2">Sedentario (Poco o nada de ejercicio)</option>
+              <option value="1.375">Ligero (Ejercicio 1 a 3 días/semana)</option>
+              <option value="1.55">Moderado (Ejercicio 3 a 5 días/semana)</option>
+              <option value="1.725">Fuerte (Ejercicio 6 a 7 días/semana)</option>
+              <option value="1.9">Muy Intenso (Atleta o trabajo físico pesado)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="goal">Objetivo nutricional</label>
+            <select id="goal" required>
+              <option value="maintain">Mantenimiento de peso</option>
+              <option value="deficit">Pérdida gradual de peso (Déficit)</option>
+              <option value="surplus">Ganancia de masa muscular (Superávit)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Calcular Mi Plan de Porciones</button>
+      </form>
+
+      <!-- Resultados ocultos por defecto -->
+      <div id="results" class="results-container hidden">
+        <hr class="divider">
+        <h3>Tus Resultados Estimados</h3>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-value" id="res-tbm">0</span>
+            <span class="metric-label">Tasa Metabólica Basal (kcal)</span>
+          </div>
+          <div class="metric-card highlight">
+            <span class="metric-value" id="res-calories">0</span>
+            <span class="metric-label">Calorías Diarias Objetivo (kcal)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="res-bmi">0</span>
+            <span class="metric-label">Índice de Masa Corporal (IMC)</span>
+          </div>
+        </div>
+
+        <h4>Distribución de Macronutrientes</h4>
+        <div class="macros-grid">
+          <div class="macro-box protein">
+            <strong>Proteínas:</strong> <span id="res-protein">0</span> g / día
+          </div>
+          <div class="macro-box carbs">
+            <strong>Carbohidratos:</strong> <span id="res-carbs">0</span> g / día
+          </div>
+          <div class="macro-box fats">
+            <strong>Grasas Saludables:</strong> <span id="res-fats">0</span> g / día
+          </div>
+        </div>
+
+        <h4>Sugerencia de Porciones Diarias Recomendadas</h4>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Grupo de Alimentos</th>
+                <th>Porciones Recomendadas/Día</th>
+                <th>Ejemplo de 1 Porción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Proteínas delgadas</td>
+                <td id="portion-protein">-</td>
+                <td>100g de pechuga de pollo, 120g de pescado o 2 huevos.</td>
+              </tr>
+              <tr>
+                <td>Cereales e hidratos complejos</td>
+                <td id="portion-carbs">-</td>
+                <td>3/4 taza de arroz/fideos integrales cocidos o 1 rebanada de pan integral.</td>
+              </tr>
+              <tr>
+                <td>Verduras y Hortalizas</td>
+                <td id="portion-veg">-</td>
+                <td>1 taza de verduras crudas o 1/2 taza de verduras cocidas.</td>
+              </tr>
+              <tr>
+                <td>Frutas frescas</td>
+                <td id="portion-fruits">-</td>
+                <td>1 fruta mediana (manzana, pera) o 1 taza de frutos rojos.</td>
+              </tr>
+              <tr>
+                <td>Grasas saludables y aceites</td>
+                <td id="portion-fats">-</td>
+                <td>1 cucharadita de aceite de oliva, 1/4 de palta o 30g de frutos secos.</td>
+              </tr>
+              <tr>
+                <td>Lácteos o bebidas vegetales</td>
+                <td id="portion-dairy">-</td>
+                <td>1 vaso de leche (200ml), 1 yogur natural o 30g de queso fresco.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Información sobre Modelos de Dietas -->
+    <section id="guias-dietas" class="card">
+      <h2>Modelos Dietéticos Principales</h2>
+      <div class="diet-cards-grid">
+        <div class="diet-card">
+          <h3>Dieta Mediterránea</h3>
+          <p>Basada en el consumo elevado de verduras, legumbres, frutas, cereales integrales y aceite de oliva extra virgen. Proteínas moderadas derivadas del pescado y aves.</p>
+        </div>
+        <div class="diet-card">
+          <h3>Dieta Normocalórica / Equilibrada</h3>
+          <p>Distribución armónica estándar (50% carbohidratos, 20% proteínas, 30% grasas). Sostenible a largo plazo para mantener un estado de salud cardiovascular adecuado.</p>
+        </div>
+        <div class="diet-card">
+          <h3>Dieta Baja en Carbohidratos (Low-Carb)</h3>
+          <p>Enfocada en reducir la ingesta de azúcares refinados y harinas, priorizando verduras de hoja verde, proteínas magras y grasas saludables.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consejos Generales -->
+    <section id="consejos" class="card">
+      <h2>Principios Clave de Nutrición</h2>
+      <ul class="styled-list">
+        <li><strong>Hidratación adecuada:</strong> Consumir entre 30 a 35 ml de agua por cada kilogramo de peso corporal.</li>
+        <li><strong>Fibra dietética:</strong> Asegurar un aporte mínimo de 25-30g diarios a través de verduras, legumbres y cereales integrales.</li>
+        <li><strong>Variedad cromática:</strong> Incorporar vegetales de distintos colores para garantizar una cobertura amplia de micronutrientes y antioxidantes.</li>
+        <li><strong>Moderación en ultraprocesados:</strong> Priorizar alimentos en su estado natural o mínimamente procesados.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Sitio Informativo de Nutrición & Dietética — Las estimaciones presentadas son orientativas y no reemplazan la evaluación clínica individualizada de un profesional nutricionista o médico.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
